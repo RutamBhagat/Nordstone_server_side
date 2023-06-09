@@ -3,7 +3,7 @@ import addNotification from "react-push-notification";
 
 export default function Home() {
   return (
-    <div className="relative mt-[60px] min-h-screen pt-5 flex justify-center items-center">
+    <div className="flex-1 flex justify-center items-center">
       <div
         onClick={() => {
           addNotification({
