@@ -1,5 +1,4 @@
 "use client";
-import { signJwtAccessToken } from "@/lib/jwt";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import React from "react";

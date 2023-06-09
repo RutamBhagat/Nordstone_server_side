@@ -7,8 +7,10 @@ import SessionButton from "./SessionButton";
 export default function Navbar() {
   const [state, setState] = useState(false);
 
-  // Replace javascript:void(0) paths with your paths
-  const navigation = [{ title: "User Posts", path: "/userPosts" }];
+  const navigation = [
+    { title: "Notifications", path: "/" },
+    { title: "User Posts", path: "/userPosts" },
+  ];
 
   return (
     <nav className="bg-white border-b w-full md:static md:text-sm md:border-none">
@@ -61,12 +63,12 @@ export default function Navbar() {
               <li>
                 <Link
                   href="/auth/register"
-                  className="block py-3 px-4 font-medium text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 active:shadow-none rounded-lg shadow md:inline"
+                  className="block py-3 px-4 font-medium text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 active:shadow-none rounded-lg shadow"
                 >
                   Sign Up
                 </Link>
               </li>
-              <SessionButton />
+              {/* <SessionButton /> */}
             </div>
           </ul>
         </div>

@@ -13,9 +13,9 @@ export default function SignInButton({}: Props) {
         onClick={() => {
           signOut();
         }}
-        className="block py-3 px-4 font-medium text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 active:shadow-none rounded-lg shadow md:inline"
+        className="block py-3 px-4 font-medium text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 active:shadow-none rounded-lg shadow"
       >
-        {session.user.name} Sign Out
+        Sign Out
       </button>
     );
   }
@@ -24,7 +24,7 @@ export default function SignInButton({}: Props) {
       onClick={() => {
         signIn();
       }}
-      className="block py-3 px-4 font-medium text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 active:shadow-none rounded-lg shadow md:inline"
+      className="block py-3 px-4 font-medium text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 active:shadow-none rounded-lg shadow"
     >
       Log In
     </button>
