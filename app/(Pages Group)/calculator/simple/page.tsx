@@ -1,7 +1,7 @@
 "use client";
 import axios from "axios";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import Slider from "../components/Slider";
 
 export default function page() {
@@ -41,8 +41,13 @@ export default function page() {
               <label className="text-gray-600">Number {num1}</label>
               <Slider
                 numValue={num1}
-                changeHandler={(e: any) => {
-                  let value = e.target.value;
+                changeHandler={(e: ChangeEvent) => {
+                  // @ts-ignore
+                  const value = e.target.value;
+                  if (value === "") {
+                    setNum1("0");
+                    return;
+                  }
                   setNum1(value);
                 }}
               />
@@ -82,8 +87,13 @@ export default function page() {
               <label className="text-gray-600">Number {num2}</label>
               <Slider
                 numValue={num2}
-                changeHandler={(e: any) => {
-                  let value = e.target.value;
+                changeHandler={(e: ChangeEvent) => {
+                  // @ts-ignore
+                  const value = e.target.value;
+                  if (value === "") {
+                    setNum2("0");
+                    return;
+                  }
                   setNum2(value);
                 }}
               />
