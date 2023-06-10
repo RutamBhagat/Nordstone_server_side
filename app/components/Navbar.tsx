@@ -9,6 +9,8 @@ export default function Navbar() {
 
   const navigation = [
     { title: "Notifications", path: "/" },
+    { title: "Photos", path: "/photos" },
+    { title: "Text", path: "/text" },
     { title: "Calculator", path: "/calculator" },
     { title: "User Posts", path: "/userPosts" },
   ];
