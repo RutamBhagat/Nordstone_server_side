@@ -31,7 +31,7 @@ export default function CreatePost() {
   };
 
   return (
-    <form onSubmit={submitPost}>
+    <form onSubmit={submitPost} className="mt-auto">
       <div className="m-2 flex items-center px-3 py-2 rounded-lg bg-gray-50 border">
         <textarea
           onChange={(e) => {
