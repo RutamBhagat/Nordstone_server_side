@@ -1,11 +1,23 @@
+import { Post } from "@prisma/client";
 import React from "react";
+import Posts from "./components/Posts";
+import axios from "axios";
 
-type Props = {};
+type Props = {
+  searchParams: {
+    user_id: string;
+  };
+};
 
-export default function page({}: Props) {
+export const revalidate = 0;
+
+export default async function page({ searchParams: { user_id } }: Props) {
+  const { data } = await axios.get<Post[]>(`${process.env.BASE_URL}/api/posts/getPosts?user_id=${user_id}`);
   return (
-    <div className="flex-1 bg-blue-600">
-      <h1>Only authenticated users should access this page</h1>
-    </div>
+    <>
+      {data?.map((post) => (
+        <Posts key={post.id} post={post} />
+      ))}
+    </>
   );
 }

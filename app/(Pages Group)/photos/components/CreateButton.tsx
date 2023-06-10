@@ -1,6 +1,11 @@
+"use client";
 import React from "react";
 
-export default function CreateButton({ clickHandler }: { clickHandler: () => void }) {
+type Props = {
+  clickHandler: () => void;
+};
+
+export default function CreateButton({ clickHandler }: Props) {
   return (
     <button
       onClick={clickHandler}
