@@ -1,11 +1,23 @@
-import React from "react";
+import { type Photo } from "@prisma/client";
+import axios from "axios";
+import ReactMasonaryComponent from "./components/ReactMasonary";
 
-type Props = {};
+type Props = {
+  searchParams: {
+    user_id: string;
+  };
+};
 
-export default function page({}: Props) {
+export const revalidate = 0;
+
+export default async function page({ searchParams: { user_id } }: Props) {
+  const { data } = await axios.get<Photo[]>(`${process.env.BASE_URL}/api/photos/getPhotos?user_id=${user_id}`);
   return (
-    <div className="flex-1 bg-blue-600">
-      <h1>Only authenticated users should access this page</h1>
-    </div>
+    <>
+      <div className="flex-1 p-3">
+        <ReactMasonaryComponent data={data} />
+      </div>
+      {/* <CreatePhoto />s */}
+    </>
   );
 }

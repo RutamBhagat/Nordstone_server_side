@@ -3,7 +3,7 @@ import NextAuth from "next-auth";
 declare module "next-auth" {
   type Session = {
     user: {
-      id: number;
+      id: string;
       name: string;
       email: string;
       createdAt?: Date;

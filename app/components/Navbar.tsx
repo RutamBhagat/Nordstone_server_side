@@ -3,14 +3,16 @@ import React, { useState } from "react";
 import SignInButton from "./SignInButton";
 import Link from "next/link";
 import SessionButton from "./SessionButton";
+import { useSession } from "next-auth/react";
 
 export default function Navbar() {
+  const { data: session } = useSession();
   const [state, setState] = useState(false);
 
   const navigation = [
     { title: "Notifications", path: "/" },
-    { title: "Photos", path: "/photos" },
-    { title: "Text", path: "/text" },
+    { title: "Photos", path: `/photos?user_id=${session?.user.id}` },
+    { title: "Text", path: `/text?user_id=${session?.user.id}` },
     { title: "Calculator", path: "/calculator" },
     { title: "User Posts", path: "/userPosts" },
   ];
@@ -71,7 +73,7 @@ export default function Navbar() {
                   Sign Up
                 </Link>
               </li>
-              {/* <SessionButton /> */}
+              <SessionButton />
             </div>
           </ul>
         </div>
