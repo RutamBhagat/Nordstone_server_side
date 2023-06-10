@@ -2,6 +2,7 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import Providers from "./components/Providers";
 import Navbar from "./components/Navbar";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,6 +14,9 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html className="light" lang="en">
+      <head>
+        <Script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></Script>
+      </head>
       <body className={`flex flex-col min-h-screen w-full ${inter.className}`}>
         <Providers>
           <Navbar />

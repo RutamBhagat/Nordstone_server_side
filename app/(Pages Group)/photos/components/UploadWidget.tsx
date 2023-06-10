@@ -1,104 +1,91 @@
 "use client";
-import React, { useContext, useRef, useEffect } from "react";
-import axios, { AxiosError } from "axios";
-import { AuthenticationContext } from "@/app/context/AuthContext";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { toast } from "react-hot-toast";
+import React, { useRef, useEffect, useTransition } from "react";
+import axios from "axios";
 import CreateButton from "./CreateButton";
 import UpdateButton from "./UpdateButton";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
-export default function UploadWidget({ command, photoId }: { command?: string; photoId?: string }) {
-  const auth = useContext(AuthenticationContext);
-  const queryClient = useQueryClient();
+type Props = {
+  command: string;
+  photoId?: string;
+  setIsFetching?: (value: boolean) => void;
+};
+
+export default function UploadWidget({ command, photoId, setIsFetching }: Props) {
+  const router = useRouter();
+  const { data: session } = useSession();
+  const [isPending, startTransition] = useTransition();
   const cloudinaryRef = useRef(null);
   const widgetRef = useRef(null);
-  const toastPostID = useRef<string | undefined>();
 
-  const uploadMutation = useMutation(
-    async ({ public_id, secure_url }: { public_id: string; secure_url: string }) => {
-      axios.post("/api/photos/upload", {
+  const handleUpload = async ({ public_id, secure_url }: { public_id: string; secure_url: string }) => {
+    if (setIsFetching) {
+      setIsFetching(true);
+    }
+    try {
+      await axios.post("/api/photos/upload", {
         public_id: public_id,
-        email: auth?.data?.email,
+        user_id: session?.user?.id,
         url: secure_url,
       });
-    },
-    {
-      onMutate: () => {
-        toastPostID.current = toast.loading("Uploading photo...");
-      },
-      onSuccess: (data) => {
-        toast.success("Photo uploaded successfully.", { id: toastPostID.current });
-        queryClient.invalidateQueries(["photos"]);
-      },
-      onError: (error) => {
-        if (error instanceof AxiosError) {
-          toast.error(error?.response?.data.message, { id: toastPostID.current });
-        }
-      },
+    } catch (error) {
+      console.log("error", error);
     }
-  );
+    if (setIsFetching) {
+      setIsFetching(false);
+    }
+    startTransition(() => {
+      router.refresh();
+    });
+  };
 
-  const updateMutation = useMutation(
-    async ({ id, newId, secure_url }: { id: string; newId: string; secure_url: string }) => {
-      try {
-        const response = await axios.post("/api/photos/update", {
-          id: id,
-          newId: newId,
-          newUrl: secure_url,
-        });
-        return response.data;
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    {
-      onMutate: () => {
-        toastPostID.current = toast.loading("Updating photo...");
-      },
-      onSuccess: (data) => {
-        queryClient.invalidateQueries(["photos"]);
-        toast.success("Photo updated successfully.", { id: toastPostID.current });
-      },
-      onError: (error) => {
-        if (error instanceof AxiosError) {
-          toast.error(error?.response?.data.message, { id: toastPostID.current });
-        }
-      },
+  const handleUpdate = async ({ id, newId, secure_url }: { id: string; newId: string; secure_url: string }) => {
+    if (setIsFetching) {
+      setIsFetching(true);
     }
-  );
+    try {
+      await axios.post("/api/photos/update", {
+        id: id,
+        newId: newId,
+        newUrl: secure_url,
+      });
+    } catch (error) {
+      console.log("error", error);
+    }
+    if (setIsFetching) {
+      setIsFetching(false);
+    }
+    startTransition(() => {
+      router.refresh();
+    });
+  };
 
   useEffect(() => {
     // @ts-ignore
-    if (window.cloudinary !== undefined) {
-      // @ts-ignore
-      cloudinaryRef.current = window?.cloudinary;
-      // @ts-ignore
-      if (cloudinaryRef?.current?.createUploadWidget !== undefined)
-        // @ts-ignore
-        widgetRef.current = cloudinaryRef?.current?.createUploadWidget(
-          { cloudName: "drxe0t2yg", uploadPreset: "my_uploads" },
-          (error: any, result: any) => {
-            console.log("result", result);
-            if (result.event === "success") {
-              console.log("result.info", result.info);
-              if (command === "CREATE") {
-                uploadMutation.mutate({
-                  public_id: result.info.public_id,
-                  secure_url: result.info.secure_url,
-                });
-              } else {
-                if (photoId) {
-                  updateMutation.mutate({
-                    id: photoId,
-                    newId: `${result.info.public_id}`,
-                    secure_url: `${result.info.secure_url}`,
-                  });
-                }
-              }
+    cloudinaryRef.current = window?.cloudinary;
+    // @ts-ignore
+    widgetRef.current = cloudinaryRef?.current?.createUploadWidget(
+      { cloudName: "drxe0t2yg", uploadPreset: "my_uploads" },
+      (error: any, result: any) => {
+        if (result.event === "success") {
+          if (command === "CREATE") {
+            handleUpload({
+              public_id: result.info.public_id,
+              secure_url: result.info.secure_url,
+            });
+          } else if (command === "UPDATE") {
+            if (photoId) {
+              handleUpdate({
+                id: photoId,
+                newId: `${result.info.public_id}`,
+                secure_url: `${result.info.secure_url}`,
+              });
             }
           }
-        );
-    }
+        }
+      }
+    );
   }, []);
 
   return command === "CREATE" ? (

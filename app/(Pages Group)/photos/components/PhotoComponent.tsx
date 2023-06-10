@@ -1,15 +1,10 @@
 "use client";
 
-import React, { useRef, useState, useTransition } from "react";
-import axios, { AxiosError } from "axios";
+import React, { useState, useTransition } from "react";
+import axios from "axios";
 import { type Photo } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import { usePathname } from "next/navigation";
-import deletePhoto from "@/lib/photos/deletePhoto";
-// import { useMutation, useQueryClient } from "@tanstack/react-query";
-// import { toast } from "react-hot-toast";
-// import deletePhoto from "@/lib/deletePhoto";
-// import UploadWidget from "./UploadWidget";
+import UploadWidget from "./UploadWidget";
 
 type Props = {
   photo: Photo;
@@ -17,48 +12,32 @@ type Props = {
 
 export default function PhotoComponent({ photo }: Props) {
   const router = useRouter();
-  const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
-  // const [isFetching, setIsFetching] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
   const [fullscreen, setFullscreen] = useState(false);
   const toggleFullscreen = () => setFullscreen(!fullscreen);
 
-  // const isMutating = isFetching || isPending;
+  const isMutating = isFetching || isPending;
 
   const handleDelete = async () => {
-    // setIsFetching(true);
-    // await deletePhoto(photo.id);
-    await axios.delete(`http://localhost:3000/api/photos/delete?public_id=${photo.id}`);
-    // setIsFetching(false);
+    setIsFetching(true);
+    try {
+      await axios.delete(`/api/photos/delete?public_id=${photo.id}`);
+    } catch (error) {
+      console.log("error", error);
+    }
+    setIsFetching(false);
     startTransition(() => {
       router.refresh();
     });
   };
-  // const queryClient = useQueryClient();
-  // const toastPostID = useRef<string | undefined>();
-
-  // delete a photo
-  // const { mutate } = useMutation(deletePhoto, {
-  //   onMutate: () => {
-  //     toastPostID.current = toast.loading("Deleting the photo...");
-  //   },
-  //   onSuccess: (data) => {
-  //     toast.success("Photo deleted successfully.", { id: toastPostID.current });
-  //     queryClient.invalidateQueries(["photos"]);
-  //   },
-  //   onError: (error) => {
-  //     if (error instanceof AxiosError) {
-  //       toast.error(error?.response?.data.message, { id: toastPostID.current });
-  //     }
-  //   },
-  // });
 
   return (
     <>
       <img
         onClick={toggleFullscreen}
         src={photo.url}
-        className="w-full h-full cursor-pointer object-cover object-center"
+        className={`w-full h-full cursor-pointer object-cover object-center ${isMutating ? "animate-pulse" : ""}`}
       />
       {fullscreen && (
         <div onClick={toggleFullscreen} className="fixed z-50 inset-0 bg-black bg-opacity-75">
@@ -69,7 +48,7 @@ export default function PhotoComponent({ photo }: Props) {
                   e.stopPropagation();
                 }}
                 src={photo.url}
-                className="relative max-w-[75vw] max-h-[90vh] cursor-default"
+                className={`relative max-w-[75vw] max-h-[90vh] cursor-default ${isMutating ? "animate-pulse" : ""}`}
               />
               <form
                 onClick={(e) => {
@@ -88,7 +67,13 @@ export default function PhotoComponent({ photo }: Props) {
                     alt="delete-forever"
                   />
                 </button>
-                {/* <UploadWidget photoId={photo.id} /> */}
+                <UploadWidget
+                  setIsFetching={(value: boolean) => {
+                    setIsFetching(value);
+                  }}
+                  photoId={photo.id}
+                  command={"UPDATE"}
+                />
               </form>
             </div>
           </div>

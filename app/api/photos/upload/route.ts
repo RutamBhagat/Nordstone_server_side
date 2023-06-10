@@ -3,10 +3,10 @@ import { prisma } from "@/lib/prisma";
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
-  const { public_id, email, url } = body;
+  const { public_id, user_id, url } = body;
 
   const prismaUser = await prisma.user.findUnique({
-    where: { email: email },
+    where: { id: user_id },
   });
 
   if (!prismaUser) {
@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
       data: {
         id: public_id,
         url: url as string,
-        userId: prismaUser?.id as string,
+        userId: user_id as string,
       },
     });
     return NextResponse.json(result, { status: 200 });

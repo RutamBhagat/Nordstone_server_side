@@ -4,7 +4,7 @@ import UploadWidget from "./UploadWidget";
 
 export default function CreatePost() {
   return (
-    <form className="fixed top-20 right-5 border border-gray-400 rounded-lg z-20">
+    <form className="fixed bottom-5 right-5 border border-gray-400 rounded-lg z-20">
       <UploadWidget command={"CREATE"} />
     </form>
   );

@@ -1,6 +1,7 @@
 import { type Photo } from "@prisma/client";
 import axios from "axios";
 import ReactMasonaryComponent from "./components/ReactMasonary";
+import CreatePhoto from "./components/CreatePhoto";
 
 type Props = {
   searchParams: {
@@ -17,7 +18,7 @@ export default async function page({ searchParams: { user_id } }: Props) {
       <div className="flex-1 p-3">
         <ReactMasonaryComponent data={data} />
       </div>
-      {/* <CreatePhoto />s */}
+      <CreatePhoto />
     </>
   );
 }
