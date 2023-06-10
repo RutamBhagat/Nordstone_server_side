@@ -17,7 +17,7 @@ model User {
   password   String
   posts      Post[]
   photos     Photo[]
-  createdAt  DateTime @default(now())
+  created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
 
