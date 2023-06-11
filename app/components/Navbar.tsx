@@ -12,8 +12,6 @@ export default function Navbar() {
   useEffect(() => {
     if (session?.user?.accessToken) {
       axios.defaults.headers.common["Authorization"] = `Bearer ${session.user.accessToken}`;
-    } else {
-      delete axios.defaults.headers.common["Authorization"];
     }
   }, [session]);
 
