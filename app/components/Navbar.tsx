@@ -1,17 +1,26 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SignInButton from "./SignInButton";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import axios from "axios";
 
 export default function Navbar() {
   const { data: session } = useSession();
   const [state, setState] = useState(false);
 
+  useEffect(() => {
+    if (session?.user?.accessToken) {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${session.user.accessToken}`;
+    } else {
+      delete axios.defaults.headers.common["Authorization"];
+    }
+  }, [session]);
+
   const navigation = [
     { title: "Notifications", path: "/" },
-    { title: "Photos", path: `/photos?user_id=${session?.user.id}` },
-    { title: "Text", path: `/text?user_id=${session?.user.id}` },
+    { title: "Photos", path: `/photos?user_id=${session?.user.id}&token=${session?.user?.accessToken}` },
+    { title: "Text", path: `/text?user_id=${session?.user.id}&token=${session?.user?.accessToken}` },
     { title: "Calculator", path: "/calculator" },
   ];
 
