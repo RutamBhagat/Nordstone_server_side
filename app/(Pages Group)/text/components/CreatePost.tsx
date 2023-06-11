@@ -16,14 +16,15 @@ export default function CreatePost() {
 
   const submitPost = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsDisabled(true);
     setIsFetching(true);
+    setIsDisabled(true);
     try {
       await axios.post("/api/posts/addPost", { title: title, user_id: session?.user?.id });
       setTitle("");
     } catch (error) {
       console.log("error", error);
     }
+    setIsDisabled(false);
     setIsFetching(false);
     startTransition(() => {
       router.refresh();
@@ -31,8 +32,8 @@ export default function CreatePost() {
   };
 
   return (
-    <form onSubmit={submitPost} className="mt-auto">
-      <div className="m-2 flex items-center px-3 py-2 rounded-lg bg-gray-50 border">
+    <form onSubmit={submitPost}>
+      <div className="flex items-center px-3 py-2 rounded-lg bg-gray-50 border">
         <textarea
           onChange={(e) => {
             setTitle(e.target.value);

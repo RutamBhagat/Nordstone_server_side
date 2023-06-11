@@ -1,5 +1,6 @@
 "use client";
 import { signIn, signOut, useSession } from "next-auth/react";
+import Link from "next/link";
 
 type Props = {};
 
@@ -9,24 +10,26 @@ export default function SignInButton({}: Props) {
 
   if (session && session.user) {
     return (
-      <button
+      <Link
+        href="javascript:void(0)"
         onClick={() => {
           signOut();
         }}
-        className="block py-3 px-4 font-medium text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 active:shadow-none rounded-lg shadow"
+        className="block py-2 text-center text-gray-700 hover:text-indigo-600 border rounded-lg md:border-none"
       >
         Sign Out
-      </button>
+      </Link>
     );
   }
   return (
-    <button
+    <Link
+      href="javascript:void(0)"
       onClick={() => {
         signIn();
       }}
-      className="block py-3 px-4 font-medium text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 active:shadow-none rounded-lg shadow"
+      className="block py-2 text-center text-gray-700 hover:text-indigo-600 border rounded-lg md:border-none"
     >
       Log In
-    </button>
+    </Link>
   );
 }

@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import SignInButton from "./SignInButton";
 import Link from "next/link";
-import SessionButton from "./SessionButton";
 import { useSession } from "next-auth/react";
 
 export default function Navbar() {
@@ -14,15 +13,18 @@ export default function Navbar() {
     { title: "Photos", path: `/photos?user_id=${session?.user.id}` },
     { title: "Text", path: `/text?user_id=${session?.user.id}` },
     { title: "Calculator", path: "/calculator" },
-    { title: "User Posts", path: "/userPosts" },
   ];
 
   return (
     <nav className="bg-white border-b w-full md:static md:text-sm md:border-none">
       <div className="items-center px-4 max-w-screen-xl mx-auto md:flex md:px-8">
-        <div className="flex items-center justify-between py-3 md:py-5 md:block">
+        <div className="flex items-center justify-between py-2 md:py-3 md:block">
           <Link href="/">
-            <img src="https://www.floatui.com/logo.svg" width={120} height={50} alt="Float UI logo" />
+            <img
+              src="https://nordstone.co.uk/wp-content/uploads/2023/01/Black-logo-e1674744659951.png"
+              className="h-6 mr-3 sm:h-9"
+              alt="Float UI logo"
+            />
           </Link>
           <div className="md:hidden">
             <button className="text-gray-500 hover:text-gray-800" onClick={() => setState(!state)}>
@@ -49,8 +51,8 @@ export default function Navbar() {
             </button>
           </div>
         </div>
-        <div className={`flex-1 pb-3 mt-8 md:block md:pb-0 md:mt-0 ${state ? "block" : "hidden"}`}>
-          <ul className="justify-end items-center space-y-6 md:flex md:space-x-6 md:space-y-0">
+        <div className={`flex-1 pb-2 mt-4 md:block md:pb-0 md:mt-0 ${state ? "block" : "hidden"}`}>
+          <ul className="justify-end items-center space-y-4 md:flex md:space-x-4 md:space-y-0">
             {navigation.map((item, idx) => {
               return (
                 <li key={idx} className="text-gray-700 hover:text-indigo-600">
@@ -60,20 +62,20 @@ export default function Navbar() {
                 </li>
               );
             })}
-            <span className="hidden w-px h-6 bg-gray-300 md:block"></span>
-            <div className="space-y-3 items-center gap-x-6 md:flex md:space-y-0">
-              <li>
-                <SignInButton />
-              </li>
+            <span className="hidden w-px h-5 bg-gray-300 md:block"></span>
+            <div className="space-y-2 items-center gap-x-4 md:flex md:space-y-0">
               <li>
                 <Link
                   href="/auth/register"
-                  className="block py-3 px-4 font-medium text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 active:shadow-none rounded-lg shadow"
+                  className="block py-2 px-3 font-medium text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 active:shadow-none rounded-lg shadow"
                 >
                   Sign Up
                 </Link>
               </li>
-              <SessionButton />
+              <li>
+                <SignInButton />
+              </li>
+              {/* <SessionButton /> */}
             </div>
           </ul>
         </div>
