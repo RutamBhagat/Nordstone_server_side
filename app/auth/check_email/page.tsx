@@ -2,7 +2,7 @@
 import Link from "next/link";
 import React, { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
 import axios, { AxiosError } from "axios";
-import ZoomingBackground from "../components/page";
+import ZoomingBackground from "../components/ZoomingBackground";
 
 const defaultFormFields = {
   email: "",

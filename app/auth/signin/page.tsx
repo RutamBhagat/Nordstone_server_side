@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import React, { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
-import ZoomingBackground from "../components/page";
+import ZoomingBackground from "../components/ZoomingBackground";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 

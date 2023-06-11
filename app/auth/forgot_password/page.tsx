@@ -4,7 +4,7 @@ import Link from "next/link";
 import React, { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
 import { useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
-import ZoomingBackground from "../components/page";
+import ZoomingBackground from "../components/ZoomingBackground";
 
 const defaultFormFields = {
   password: "",
