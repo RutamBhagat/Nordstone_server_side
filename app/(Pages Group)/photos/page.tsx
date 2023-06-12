@@ -14,10 +14,7 @@ export default async function page() {
       Authorization: `Bearer ${session?.user.accessToken}`,
     },
   };
-  const { data } = await axios.get<Photo[]>(
-    `${process.env.BASE_URL}/api/photos/getPhotos?user_id=${session?.user.id}`,
-    config
-  );
+  const { data } = await axios.get<Photo[]>(`${process.env.BASE_URL}/api/photos/getPhotos`, config);
   return (
     <>
       <div className="flex-1 p-3">

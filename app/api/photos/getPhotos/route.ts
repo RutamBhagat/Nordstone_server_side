@@ -1,21 +1,23 @@
-import { verifyJwt } from "@/lib/jwt";
-import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
+import { verifyJwt } from "@/lib/jwt";
 
 export async function GET(request: NextRequest) {
-  const accessToken = request.headers.get("Authorization");
+  let accessToken = request.headers.get("Authorization") as string;
+  accessToken = accessToken?.replace("Bearer ", "");
 
-  if (!accessToken || !verifyJwt(accessToken.split(" ")[1])) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  let user = null;
+  if (!accessToken) {
+    user = verifyJwt(accessToken);
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
   }
-
-  const { searchParams } = new URL(request.url);
-  const user_id = searchParams.get("user_id");
 
   try {
     const data = await prisma.photo.findMany({
       where: {
-        userId: user_id as string,
+        userId: user?.id,
       },
       include: {
         user: true,

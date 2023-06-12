@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import SignInButton from "./SignInButton";
 import Link from "next/link";
+import SessionButton from "./SessionButton";
 
 export default function Navbar() {
   const [state, setState] = useState(false);
@@ -73,7 +74,7 @@ export default function Navbar() {
               <li>
                 <SignInButton />
               </li>
-              {/* <SessionButton /> */}
+              <SessionButton />
             </div>
           </ul>
         </div>
