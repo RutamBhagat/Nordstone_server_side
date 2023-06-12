@@ -80,7 +80,7 @@ export default function Navbar() {
               Register
             </Link>
             <SignInButton />
-            <SessionButton />
+            {/* <SessionButton /> */}
           </div>
         </div>
       </div>

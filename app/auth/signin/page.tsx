@@ -37,7 +37,6 @@ export default function page() {
       redirect: false,
     });
     if (response?.error) {
-      // this error shows "CredentialsSignIn" which is a helpful error hence show custom error
       setError(response.error);
     }
     if (response?.ok && response.status === 200) {
