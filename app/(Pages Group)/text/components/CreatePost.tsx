@@ -19,7 +19,7 @@ export default function CreatePost() {
     setIsFetching(true);
     setIsDisabled(true);
     try {
-      await axios.post("/api/posts/addPost", { title: title, user_id: session?.user?.id });
+      await axios.post("/api/posts", { title: title, user_id: session?.user?.id });
       setTitle("");
     } catch (error) {
       console.log("error", error);

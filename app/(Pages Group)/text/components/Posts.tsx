@@ -19,7 +19,7 @@ export default function Post({ post }: Props) {
   const handleDelete = async () => {
     setIsFetching(true);
     try {
-      await axios.delete(`/api/posts/deletePost?text_id=${post.id}`);
+      await axios.delete(`/api/posts?text_id=${post.id}`);
     } catch (error) {
       console.log("error", error);
     }
