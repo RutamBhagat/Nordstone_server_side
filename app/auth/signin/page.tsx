@@ -88,7 +88,9 @@ export default function page() {
             <button
               type="button"
               onClick={() => {
-                signIn("google");
+                signIn("google", {
+                  callbackUrl: "/",
+                });
               }}
               className="my-3 flex w-full items-center justify-center space-x-2 rounded-lg border border-slate-200 py-3 text-center text-slate-700 transition duration-150 hover:border-slate-400 hover:text-slate-900 hover:shadow"
             >
@@ -123,7 +125,9 @@ export default function page() {
             <button
               type="button"
               onClick={() => {
-                signIn("github");
+                signIn("github", {
+                  callbackUrl: "/",
+                });
               }}
               className="my-3 flex w-full items-center justify-center space-x-2 rounded-lg border border-slate-200 py-3 text-center text-slate-700 transition duration-150 hover:border-slate-400 hover:text-slate-900 hover:shadow"
             >
