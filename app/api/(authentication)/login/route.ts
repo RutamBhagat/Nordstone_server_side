@@ -40,8 +40,12 @@ export async function POST(request: NextRequest) {
     },
   });
 
-  if (!user || !user.password) {
-    return NextResponse.json({ error: "No user found" }, { status: 400 });
+  if (!user) {
+    return NextResponse.json({ error: "User not found" }, { status: 400 });
+  }
+
+  if (user && !user.password) {
+    return NextResponse.json({ error: "Please login using your OAuth account" }, { status: 400 });
   }
 
   const isMatchingPassword = await bcrypt.compare(body.password, user.password as string);
