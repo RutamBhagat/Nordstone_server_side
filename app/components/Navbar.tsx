@@ -3,8 +3,10 @@ import React, { useState } from "react";
 import SignInButton from "./SignInButton";
 import Link from "next/link";
 import SessionButton from "./SessionButton";
+import { useSession } from "next-auth/react";
 
 export default function Navbar() {
+  const { data: session } = useSession();
   const [state, setState] = useState(false);
 
   const navigation = [
@@ -25,10 +27,14 @@ export default function Navbar() {
           <Link href="/" className="flex gap-3 justify-center items-center font-semibold text-2xl uppercase">
             <img
               className="rounded-full"
-              src="https://media.licdn.com/dms/image/C4D0BAQHGSg1Bni4TYw/company-logo_200_200/0/1616853744387?e=1694649600&v=beta&t=O5mA-lkrgTArr6Dgeh7ThaaPSwZm76cLJ86i3iUKNW8"
+              src={
+                session?.user.image
+                  ? session?.user.image
+                  : "https://media.licdn.com/dms/image/C4D0BAQHGSg1Bni4TYw/company-logo_200_200/0/1616853744387?e=1694649600&v=beta&t=O5mA-lkrgTArr6Dgeh7ThaaPSwZm76cLJ86i3iUKNW8"
+              }
               width={50}
               height={50}
-              alt="Float UI logo"
+              alt="Nordstone logo"
             />
             Nordstone
           </Link>
@@ -74,7 +80,7 @@ export default function Navbar() {
               Register
             </Link>
             <SignInButton />
-            {/* <SessionButton /> */}
+            <SessionButton />
           </div>
         </div>
       </div>

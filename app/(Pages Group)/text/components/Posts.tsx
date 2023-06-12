@@ -48,8 +48,8 @@ export default function Post({ post }: Props) {
                 gradientUnits="userSpaceOnUse"
                 spreadMethod="reflect"
               >
-                <stop offset="0" stop-color="#6dc7ff"></stop>
-                <stop offset="1" stop-color="#e6abff"></stop>
+                <stop offset="0" stopColor="#6dc7ff"></stop>
+                <stop offset="1" stopColor="#e6abff"></stop>
               </linearGradient>
               <path fill="url(#RkUIzUhPq0cp3m~uPRtTga_44054_gr1)" d="M41 34A4 4 0 1 0 41 42A4 4 0 1 0 41 34Z"></path>
               <linearGradient
@@ -61,8 +61,8 @@ export default function Post({ post }: Props) {
                 gradientUnits="userSpaceOnUse"
                 spreadMethod="reflect"
               >
-                <stop offset="0" stop-color="#6dc7ff"></stop>
-                <stop offset="1" stop-color="#e6abff"></stop>
+                <stop offset="0" stopColor="#6dc7ff"></stop>
+                <stop offset="1" stopColor="#e6abff"></stop>
               </linearGradient>
               <path fill="url(#RkUIzUhPq0cp3m~uPRtTgb_44054_gr2)" d="M23 34A4 4 0 1 0 23 42A4 4 0 1 0 23 34Z"></path>
               <linearGradient
@@ -74,8 +74,8 @@ export default function Post({ post }: Props) {
                 gradientUnits="userSpaceOnUse"
                 spreadMethod="reflect"
               >
-                <stop offset="0" stop-color="#1a6dff"></stop>
-                <stop offset="1" stop-color="#c822ff"></stop>
+                <stop offset="0" stopColor="#1a6dff"></stop>
+                <stop offset="1" stopColor="#c822ff"></stop>
               </linearGradient>
               <path
                 fill="url(#RkUIzUhPq0cp3m~uPRtTgc_44054_gr3)"
@@ -90,8 +90,8 @@ export default function Post({ post }: Props) {
                 gradientUnits="userSpaceOnUse"
                 spreadMethod="reflect"
               >
-                <stop offset="0" stop-color="#6dc7ff"></stop>
-                <stop offset="1" stop-color="#e6abff"></stop>
+                <stop offset="0" stopColor="#6dc7ff"></stop>
+                <stop offset="1" stopColor="#e6abff"></stop>
               </linearGradient>
               <path
                 fill="url(#RkUIzUhPq0cp3m~uPRtTgd_44054_gr4)"

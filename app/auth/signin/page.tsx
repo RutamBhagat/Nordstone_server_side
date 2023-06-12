@@ -31,21 +31,17 @@ export default function page() {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    try {
-      // NOTE: we need to put redirect false to avoid redirecting to the same page again
-      const response = await signIn("credentials", {
-        email: input.email,
-        password: input.password,
-        redirect: false,
-      });
-      if (response?.error) {
-        // this error shows "CredentialsSignIn" which is a helpful error hence show custom error
-        setError("Invalid email or password");
-      } else {
-        router.push("/");
-      }
-    } catch (error) {
-      console.log("error", error);
+    const response = await signIn("credentials", {
+      email: input.email,
+      password: input.password,
+      redirect: false,
+    });
+    if (response?.error) {
+      // this error shows "CredentialsSignIn" which is a helpful error hence show custom error
+      setError(response.error);
+    }
+    if (response?.ok && response.status === 200) {
+      router.push("/");
     }
   };
 
@@ -91,7 +87,9 @@ export default function page() {
             <p className="text-slate-500">Hi, Welcome back</p>
             <button
               type="button"
-              // onClick={signInWithGoogle}
+              onClick={() => {
+                signIn("google");
+              }}
               className="my-3 flex w-full items-center justify-center space-x-2 rounded-lg border border-slate-200 py-3 text-center text-slate-700 transition duration-150 hover:border-slate-400 hover:text-slate-900 hover:shadow"
             >
               <svg
@@ -124,7 +122,9 @@ export default function page() {
             </button>
             <button
               type="button"
-              // onClick={signInWithGoogle}
+              onClick={() => {
+                signIn("github");
+              }}
               className="my-3 flex w-full items-center justify-center space-x-2 rounded-lg border border-slate-200 py-3 text-center text-slate-700 transition duration-150 hover:border-slate-400 hover:text-slate-900 hover:shadow"
             >
               <svg className="w-7 h-7" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 48 48">
@@ -136,8 +136,8 @@ export default function page() {
                   y2="23.508"
                   gradientUnits="userSpaceOnUse"
                 >
-                  <stop offset="0" stop-color="#4c4c4c"></stop>
-                  <stop offset="1" stop-color="#343434"></stop>
+                  <stop offset="0" stopColor="#4c4c4c"></stop>
+                  <stop offset="1" stopColor="#343434"></stop>
                 </linearGradient>
                 <path
                   fill="url(#rL2wppHyxHVbobwndsT6Ca_AZOZNnY73haj_gr1)"
