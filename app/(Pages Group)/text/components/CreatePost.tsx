@@ -1,6 +1,6 @@
 "use client";
-import React, { useContext, useRef, useState, useTransition } from "react";
-import axios, { AxiosError } from "axios";
+import React, { useState, useTransition } from "react";
+import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -8,15 +8,12 @@ export default function CreatePost() {
   const { data: session } = useSession();
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  const [isFetching, setIsFetching] = useState(false);
 
-  const isMutating = isFetching || isPending;
   const [title, setTitle] = useState("");
   const [isDisabled, setIsDisabled] = useState(false);
 
   const submitPost = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsFetching(true);
     setIsDisabled(true);
     try {
       await axios.post("/api/posts", { title: title, user_id: session?.user?.id });
@@ -25,7 +22,6 @@ export default function CreatePost() {
       console.log("error", error);
     }
     setIsDisabled(false);
-    setIsFetching(false);
     startTransition(() => {
       router.refresh();
     });

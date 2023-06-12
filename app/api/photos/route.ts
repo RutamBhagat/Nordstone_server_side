@@ -1,8 +1,16 @@
+import { authOptions } from "@/lib/auth";
 import cloudinary from "@/lib/cloudinary";
 import { prisma } from "@/lib/prisma";
+import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const body = await request.json();
   const { public_id, user_id, url } = body;
 
@@ -30,6 +38,12 @@ export async function POST(request: NextRequest) {
 }
 
 export async function PUT(request: NextRequest) {
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const body = await request.json();
   const { id, newId, newUrl } = body;
 
@@ -45,11 +59,17 @@ export async function PUT(request: NextRequest) {
     });
     return NextResponse.json(result, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ err: "Error occured while updating an image url" }, { status: 400 });
+    return NextResponse.json({ error: "Error occured while updating an image url" }, { status: 400 });
   }
 }
 
 export async function DELETE(request: NextRequest) {
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const { searchParams } = new URL(request.url);
   const public_id = searchParams.get("public_id") as string;
 
@@ -67,6 +87,6 @@ export async function DELETE(request: NextRequest) {
 
     return NextResponse.json("result", { status: 200 });
   } catch (error) {
-    return NextResponse.json({ err: "Error occured while deleting an image url" }, { status: 400 });
+    return NextResponse.json({ error: "Error occured while deleting an image url" }, { status: 400 });
   }
 }
