@@ -74,7 +74,7 @@ export default function Navbar() {
               <li>
                 <SignInButton />
               </li>
-              <SessionButton />
+              {/* <SessionButton /> */}
             </div>
           </ul>
         </div>
