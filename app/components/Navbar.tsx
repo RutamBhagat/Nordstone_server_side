@@ -74,6 +74,7 @@ export default function Navbar() {
               Register
             </Link>
             <SignInButton />
+            {/* <SessionButton /> */}
           </div>
         </div>
       </div>
