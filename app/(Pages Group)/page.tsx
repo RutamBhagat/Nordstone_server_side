@@ -16,9 +16,9 @@ export default function Home() {
         }}
         className="flex justify-center items-center cursor-pointer gap-5 text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
       >
-        <div className="inline-block bg-white rounded-full p-2">
+        <div className="inline-block bg-black rounded-full">
           <img
-            className="w-8"
+            className="w-12 rounded-full"
             src="https://photos.wellfound.com/startups/i/8323263-74d2bac371f5f34b7d05369dc4296767-medium_jpg.jpg?buster=1620211704"
           />
         </div>

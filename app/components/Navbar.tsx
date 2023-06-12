@@ -15,18 +15,25 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="bg-white border-b w-full md:static md:text-sm md:border-none">
-      <div className="items-center px-4 max-w-screen-xl mx-auto md:flex md:px-8">
-        <div className="flex items-center justify-between py-2 md:py-3 md:block">
-          <Link href="/">
+    <nav
+      className={`bg-white md:text-sm ${
+        state ? "shadow-lg rounded-xl border mx-2 mt-2 md:shadow-none md:border-none md:mx-2 md:mt-0" : ""
+      }`}
+    >
+      <div className="gap-x-14 items-center max-w-screen-xl mx-auto px-4 md:flex md:px-8">
+        <div className="flex items-center justify-between py-2.5 md:block">
+          <Link href="/" className="flex gap-3 justify-center items-center font-semibold text-2xl uppercase">
             <img
-              src="https://nordstone.co.uk/wp-content/uploads/2023/01/Black-logo-e1674744659951.png"
-              className="h-6 mr-3 sm:h-9"
+              className="rounded-full"
+              src="https://media.licdn.com/dms/image/C4D0BAQHGSg1Bni4TYw/company-logo_200_200/0/1616853744387?e=1694649600&v=beta&t=O5mA-lkrgTArr6Dgeh7ThaaPSwZm76cLJ86i3iUKNW8"
+              width={50}
+              height={50}
               alt="Float UI logo"
             />
+            Nordstone
           </Link>
           <div className="md:hidden">
-            <button className="text-gray-500 hover:text-gray-800" onClick={() => setState(!state)}>
+            <button className="menu-btn text-gray-500 hover:text-gray-800" onClick={() => setState(!state)}>
               {state ? (
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
                   <path
@@ -50,33 +57,24 @@ export default function Navbar() {
             </button>
           </div>
         </div>
-        <div className={`flex-1 pb-2 mt-4 md:block md:pb-0 md:mt-0 ${state ? "block" : "hidden"}`}>
-          <ul className="justify-end items-center space-y-4 md:flex md:space-x-4 md:space-y-0">
+        <div className={`flex-1 items-center mt-8 md:mt-0 md:flex ${state ? "block" : "hidden"} `}>
+          <ul className="justify-center items-center space-y-6 md:flex md:space-x-6 md:space-y-0">
             {navigation.map((item, idx) => {
               return (
-                <li key={idx} className="text-gray-700 hover:text-indigo-600">
+                <li key={idx} className="text-gray-700 hover:text-gray-900">
                   <Link href={item.path} className="block">
                     {item.title}
                   </Link>
                 </li>
               );
             })}
-            <span className="hidden w-px h-5 bg-gray-300 md:block"></span>
-            <div className="space-y-2 items-center gap-x-4 md:flex md:space-y-0">
-              <li>
-                <Link
-                  href="/auth/register"
-                  className="block py-2 px-3 font-medium text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 active:shadow-none rounded-lg shadow"
-                >
-                  Sign Up
-                </Link>
-              </li>
-              <li>
-                <SignInButton />
-              </li>
-              {/* <SessionButton /> */}
-            </div>
           </ul>
+          <div className="flex-1 gap-x-6 items-center justify-end mt-6 space-y-6 md:flex md:space-y-0 md:mt-0">
+            <Link href="/auth/register" className="block text-gray-700 hover:text-gray-900">
+              Register
+            </Link>
+            <SignInButton />
+          </div>
         </div>
       </div>
     </nav>
