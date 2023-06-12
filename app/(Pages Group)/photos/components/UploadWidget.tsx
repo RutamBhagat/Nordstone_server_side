@@ -1,3 +1,4 @@
+"use client";
 import React, { useRef, useEffect, useTransition } from "react";
 import axios from "axios";
 import CreateButton from "./CreateButton";
@@ -29,7 +30,7 @@ export default function UploadWidget({ command, photoId, setIsFetching }: Props)
       setIsFetching(true);
     }
     try {
-      await axios.post("/api/photos/upload", {
+      await axios.post("/api/photos", {
         public_id: public_id,
         user_id: session?.user?.id,
         url: secure_url,
@@ -58,7 +59,7 @@ export default function UploadWidget({ command, photoId, setIsFetching }: Props)
       setIsFetching(true);
     }
     try {
-      await axios.post("/api/photos/update", {
+      await axios.put("/api/photos", {
         id: id,
         newId: newId,
         newUrl: secure_url,

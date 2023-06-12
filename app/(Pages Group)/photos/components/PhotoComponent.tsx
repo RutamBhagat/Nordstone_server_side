@@ -22,7 +22,7 @@ export default function PhotoComponent({ photo }: Props) {
   const handleDelete = async () => {
     setIsFetching(true);
     try {
-      await axios.delete(`/api/photos/delete?public_id=${photo.id}`);
+      await axios.delete(`/api/photos?public_id=${photo.id}`);
     } catch (error) {
       console.log("error", error);
     }
