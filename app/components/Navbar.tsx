@@ -34,7 +34,6 @@ export default function Navbar() {
               }
               width={50}
               height={50}
-              alt="Nordstone logo"
             />
             Nordstone
           </Link>
