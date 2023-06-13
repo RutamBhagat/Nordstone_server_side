@@ -40,8 +40,7 @@ export default function page() {
     });
     if (response?.error) {
       setError(response.error);
-    }
-    if (response?.ok && response.status === 200) {
+    } else if (response?.ok && response.status === 200) {
       router.push("/");
     }
   };
