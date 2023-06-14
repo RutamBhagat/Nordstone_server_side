@@ -45,6 +45,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "User with this email does not exists" }, { status: 400 });
   }
 
+  if (user && user.password === null) {
+    return NextResponse.json({ error: "Please login using your OAuth account" }, { status: 400 });
+  }
+
   const { password, ...userWithoutPassword } = user;
 
   const accessToken = signJwtAccessToken(userWithoutPassword, { expiresIn: "15m" });

@@ -7,6 +7,7 @@ async function main() {
 
   const userLaith = await prisma.user.create({
     data: {
+      name: "Laith",
       email: "laith@gmail.com",
       password: "$2b$10$I8xkU2nQ8EAHuVOdbMy9YO/.rSU3584Y.H4LrpIujGNDtmny9FnLu",
     },
@@ -14,6 +15,7 @@ async function main() {
 
   const userJosh = await prisma.user.create({
     data: {
+      name: "Josh",
       email: "josh@gmail.com",
       password: "$2b$10$I8xkU2nQ8EAHuVOdbMy9YO/.rSU3584Y.H4LrpIujGNDtmny9FnLu",
     },
@@ -21,6 +23,7 @@ async function main() {
 
   const userLebron = await prisma.user.create({
     data: {
+      name: "Lebron",
       email: "lebron@gmail.com",
       password: "$2b$10$I8xkU2nQ8EAHuVOdbMy9YO/.rSU3584Y.H4LrpIujGNDtmny9FnLu",
     },
@@ -28,6 +31,7 @@ async function main() {
 
   const userCassidy = await prisma.user.create({
     data: {
+      name: "Cassidy",
       email: "cassidy@gmail.com",
       password: "$2b$10$I8xkU2nQ8EAHuVOdbMy9YO/.rSU3584Y.H4LrpIujGNDtmny9FnLu",
     },
